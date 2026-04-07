@@ -6,69 +6,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin:0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background:#f7f7f7;
-  color:#333;
+:root {
+  --bg:#f7f7f7;
+  --text:#333;
+  --card:#fff;
+  --green:#27ae60;
 }
 
-/* NAVBAR */
+.dark {
+  --bg:#0f172a;
+  --text:#f1f5f9;
+  --card:#1e293b;
+}
+
+body {
+  margin:0;
+  font-family:Segoe UI, Arial;
+  background:var(--bg);
+  color:var(--text);
+  transition:0.3s;
+}
+
+/* NAV */
 header {
   position:sticky;
   top:0;
   background:#145a32;
   color:white;
-  padding:15px 40px;
+  padding:15px 30px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  z-index:1000;
+}
+
+header img {
+  height:50px;
 }
 
 nav a {
   color:white;
   margin-left:20px;
   text-decoration:none;
-  font-weight:500;
+}
+
+.toggle {
+  cursor:pointer;
+  margin-left:20px;
 }
 
 /* HERO */
 .hero {
-  background:linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+  background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
   url('https://images.unsplash.com/photo-1598514982846-1f1b8baf0da3') center/cover;
   color:white;
   padding:140px 20px;
   text-align:center;
+  animation:fadeIn 1.5s ease;
 }
 
 .hero h1 {
-  font-size:46px;
-  margin-bottom:10px;
+  font-size:48px;
 }
 
-.hero p {
-  font-size:18px;
-}
-
-/* BUTTON */
 .btn {
   display:inline-block;
   margin-top:20px;
   padding:14px 28px;
-  background:#27ae60;
+  background:var(--green);
   color:white;
-  text-decoration:none;
   border-radius:6px;
-  font-weight:bold;
-  transition:0.2s;
+  text-decoration:none;
 }
 
-.btn:hover {
-  background:#1e8449;
-}
-
-/* SECTIONS */
+/* SECTION */
 .section {
   padding:70px 20px;
   max-width:1100px;
@@ -76,79 +86,42 @@ nav a {
   text-align:center;
 }
 
-.section h2 {
-  font-size:32px;
-  margin-bottom:30px;
-}
-
 /* SERVICES */
 .services {
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:25px;
 }
 
 .card {
-  background:white;
-  padding:30px;
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.08);
-  transition:0.2s;
+  background:var(--card);
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transform:translateY(30px);
+  opacity:0;
+  transition:0.6s;
 }
 
-.card:hover {
-  transform:translateY(-8px);
+.card.show {
+  transform:translateY(0);
+  opacity:1;
 }
 
 /* GALLERY */
 .gallery img {
   width:100%;
-  max-width:320px;
-  border-radius:12px;
+  max-width:300px;
   margin:10px;
-}
-
-/* TESTIMONIALS */
-.testimonials {
-  background:#e8f5e9;
-  padding:60px 20px;
-}
-
-.review {
-  max-width:600px;
-  margin:15px auto;
-  background:white;
-  padding:20px;
   border-radius:10px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.08);
 }
 
-/* CTA */
-.cta {
-  background:#145a32;
-  color:white;
-  padding:60px 20px;
-  text-align:center;
-}
-
-/* CONTACT */
-.contact-box {
-  background:white;
-  padding:30px;
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.1);
-}
-
-form {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-input, textarea {
-  padding:12px;
-  border-radius:6px;
-  border:1px solid #ccc;
+/* BOOKING */
+iframe {
+  width:100%;
+  height:600px;
+  border:none;
+  border-radius:10px;
 }
 
 /* FOOTER */
@@ -158,35 +131,42 @@ footer {
   text-align:center;
   padding:20px;
 }
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h2>RS Lawn Care</h2>
+  <img src="logo.png">
   <nav>
     <a href="#services">Services</a>
     <a href="#gallery">Work</a>
-    <a href="#contact">Contact</a>
+    <a href="#contact">Book</a>
+    <span class="toggle" onclick="toggleDark()">🌙</span>
   </nav>
 </header>
 
 <section class="hero">
   <h1>Make Your Lawn Look Like a Showpiece</h1>
-  <p>Professional Lawn Care in Flagler & Putnam County</p>
+  <p>Flagler & Putnam County Lawn Experts</p>
   <a href="tel:3865699501" class="btn">Call Now</a>
 </section>
 
 <section id="services" class="section">
-  <h2>Our Services</h2>
+  <h2>Services</h2>
   <div class="services">
-    <div class="card"><strong>Lawn Mowing</strong><br>Clean, sharp cuts every time</div>
-    <div class="card"><strong>Edging</strong><br>Crisp lines that stand out</div>
-    <div class="card"><strong>Weeding</strong><br>Keep your yard clean</div>
-    <div class="card"><strong>Mulch</strong><br>Boost curb appeal</div>
-    <div class="card"><strong>Hedge Trimming</strong><br>Neat & professional look</div>
-    <div class="card"><strong>Cleanup</strong><br>Full yard transformations</div>
+    <div class="card">Lawn Mowing</div>
+    <div class="card">Edging</div>
+    <div class="card">Weeding</div>
+    <div class="card">Mulch</div>
+    <div class="card">Hedge Trimming</div>
+    <div class="card">Cleanup</div>
   </div>
 </section>
 
@@ -198,39 +178,34 @@ footer {
   </div>
 </section>
 
-<section class="testimonials">
-  <h2>What Customers Say</h2>
-  <div class="review">⭐⭐⭐⭐⭐ "My yard has never looked better!"</div>
-  <div class="review">⭐⭐⭐⭐⭐ "Reliable and shows up on time every time."</div>
-  <div class="review">⭐⭐⭐⭐⭐ "Highly recommend RS Lawn Care!"</div>
-</section>
-
-<section class="cta">
-  <h2>Ready for a Better Lawn?</h2>
-  <p>Call or book your service today</p>
-  <a href="tel:3865699501" class="btn">Call Now</a>
-</section>
-
 <section id="contact" class="section">
-  <h2>Get a Free Quote</h2>
+  <h2>Book a Free Estimate</h2>
 
-  <div class="contact-box">
-    <p><strong>Phone:</strong> 386-569-9501</p>
-    <p><strong>Email:</strong> rylanshelton04@gmail.com</p>
+  <iframe src="https://calendly.com/YOUR-LINK-HERE"></iframe>
 
-    <form action="mailto:rylanshelton04@gmail.com" method="POST" enctype="text/plain">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="text" name="phone" placeholder="Phone Number">
-      <textarea name="message" placeholder="What service do you need?" required></textarea>
-      <button class="btn" type="submit">Send Request</button>
-    </form>
-  </div>
-
+  <p><strong>Call/Text:</strong> 386-569-9501</p>
 </section>
 
 <footer>
-  <p>© 2026 RS Lawn Care | Flagler & Putnam County</p>
+  <p>© 2026 RS Lawn Care</p>
 </footer>
+
+<script>
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
+
+/* Scroll animation */
+const cards = document.querySelectorAll('.card');
+window.addEventListener('scroll', () => {
+  cards.forEach(card => {
+    const top = card.getBoundingClientRect().top;
+    if(top < window.innerHeight - 50){
+      card.classList.add('show');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
